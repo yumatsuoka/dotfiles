@@ -1,18 +1,25 @@
 "dein Scripts-----------------------------
-if &compatible
-  set nocompatible               " Be iMproved
+
+" プラグインが実際にインストールされるディレクトリ
+let s:dein_dir = expand('~/.cache/dein')
+" dein.vim 本体
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+
+" dein.vim がなければ github から落としてくる
+if &runtimepath !~# '/dein.vim'
+  if !isdirectory(s:dein_repo_dir)
+    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+  endif
+  execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
 endif
 
 " Required:
-set runtimepath+=/home/yuma/.vim/bundle/repos/github.com/Shougo/dein.vim
-
-" Required:
-if dein#load_state('/home/yuma/.vim/bundle')
-  call dein#begin('/home/yuma/.vim/bundle')
+if dein#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir)
 
   " Let dein manage dein
   " Required:
-  call dein#add('/home/yuma/.vim/bundle/repos/github.com/Shougo/dein.vim')
+  call dein#add(s:dein_repo_dir)
 
   " Add or remove your plugins here:
   call dein#add('Shougo/neomru.vim')
@@ -26,9 +33,11 @@ if dein#load_state('/home/yuma/.vim/bundle')
   call dein#add('tomasr/molokai')
   call dein#add('nathanaelkane/vim-indent-guides')
   call dein#add('itchyny/lightline.vim')
+  call dein#add('lervag/vimtex')
 
   " You can specify revision/branch/tag.
   call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+  call dein#add('Shougo/vimproc.vim', {'build': 'make'})
 
   " Required:
   call dein#end()
@@ -46,36 +55,13 @@ endif
 
 "End dein Scripts-------------------------
 
-
-"dein
-
-if &compatible
-  set nocompatible
-endif
-
-set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
-
-call dein#begin(expand('~/.vim/bundle'))
-
-call dein#add('Shougo/dein.vim')
-call dein#add('Shougo/vimproc.vim', {'build': 'make'})
-
-" Add or remove your plugins here:
-
-call dein#end()
-
-filetype plugin indent on
-syntax enable
-
-if dein#check_install()
-	call dein#install()
-endif
-"End dein Scripts--------------
-
 "ファイルのエンコード
 set encoding=utf-8
 set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
 set fileformats=unix,dos,mac
+
+"スクロールする時にしたが見えるようにする
+set scrolloff=5
 
 "行番号表示
 set number
@@ -110,6 +96,9 @@ set statusline+=%<%F
 " 対応する括弧やブレースを表示する
 set showmatch
 
+"対応かっこの表示秒数を３秒にする
+set matchtime=3
+
 "カーソルを行頭、行末で止まらないようにする
 set whichwrap=b,s,h,l,<,>,[,]
 
@@ -123,8 +112,14 @@ highlight LineNr ctermfg=darkyellow
 "imap ( ()<LEFT>
 """"""""""""""""""""""""""""""
 
-" 改行時に前の行のインデントを継続する
-set autoindent
+"vimインデントの幅
+set shiftwidth=4
+
+"tab幅の指定
+set tabstop=4
+
+"タブ入力を複数の空白入力に書き換え
+set expandtab
 
 "shiftwidthの数だけインデントする
 set smarttab
@@ -132,11 +127,8 @@ set smarttab
 " 改行時に入力された行の末尾に合わせて次の行のインデントを増減する
 set smartindent
 
-"vimインデントの幅
-set shiftwidth=4
-
-"tab幅の指定
-set tabstop=4
+" 改行時に前の行のインデントを継続する
+set autoindent
 
 """"""""""""""""""""""""""""""""""""""""
 
@@ -212,8 +204,6 @@ if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
 
-""""""""""""""""""""""
-
 
 "----------------------------------------------------------
 " neocomplete・neosnippetの設定
@@ -236,14 +226,20 @@ imap <expr><TAB> pumvisible() ? "<C-n>" : neosnippet#jumpable() ? "<Plug>(neosni
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 
-"imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-"smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-"xmap <C-k>     <Plug>(neosnippet_expand_target)
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+"----------------------------------------------------------
 
+"インデントや空白をバックスペースで削除可能にする
 set backspace=indent,eol,start
-""""""
 
-set wildmenu
+"タブ補完
+"set wildmenu
+
+" vimでヤンクした内容をクリップボードにコピー
+set clipboard+=unnamed,unnamedplus,autoselect
+
