@@ -21,7 +21,6 @@ formulas=(
     curl
     tree
     openssl
-    z
     colordiff
     "--without-etcdir zsh"
     zsh-completions
@@ -33,6 +32,9 @@ formulas=(
     sqlite
     ricty
     markdown
+    gcc
+    tmux 
+    reattach-to-user-namespace
 )
 
 "brew tap..."
@@ -63,11 +65,11 @@ casks=(
 	mendeley-desktop
 	skim
 	kindle
+    kindle-comic-converter
 	skype
 	anaconda
-	adobeacrobatreaderx
-	cisco crient
-	dayo
+	adobe-acrobat-reader
+	day-o
 	macpass
 	spotify
 )

@@ -1,24 +1,41 @@
 #!/bin/bash
-set -u
 
-# 実行場所のディレクトリを取得
-THIS_DIR=$(cd $(dirname $0); pwd)
+DOTPATH=~/dotfiles
+GITHUB_URL=git@github.com:yumatsuoka/dotfiles.git
 
-cd $THIS_DIR
-git submodule init
-git submodule update
+# git が使えるなら git
+if has "git"; then
+    git clone --recursive "$GITHUB_URL" "$DOTPATH"
 
-echo "start setup..."
-for f in .??*; do
+# 使えない場合は curl か wget を使用する
+elif has "curl" || has "wget"; then
+    tarball="https://github.com/yumatsuoka/dotfiles/archive/master.tar.gz"
+
+    # どっちかでダウンロードして，tar に流す
+    if has "curl"; then
+        curl -L "$tarball"
+
+    elif has "wget"; then
+        wget -O - "$tarball"
+
+    fi | tar xv -
+
+    # 解凍したら，DOTPATH に置く
+    mv -f dotfiles-master "$DOTPATH"
+
+else
+    die "curl or wget required"
+fi
+
+cd ~/.dotfiles
+if [ $? -ne 0 ]; then
+    die "not found: $DOTPATH"
+fi
+
+# 移動できたらリンクを実行する
+for f in .??*
+do
     [ "$f" = ".git" ] && continue
 
-    ln -snfv ~/dotfiles/"$f" ~/
+    ln -snfv "$DOTPATH/$f" "$HOME/$f"
 done
-
-cat << END
-
-**************************************************
-DOTFILES SETUP FINISHED! bye.
-**************************************************
-
-END

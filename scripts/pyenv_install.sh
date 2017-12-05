@@ -4,3 +4,12 @@ sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev li
 
 git clone https://github.com/yyuu/pyenv.git ~/.pyenv
 
+source .bashrc
+pyenv install --list
+
+#py_version = "anaconda3-2.5.0"
+#pyenv install $py_version
+#pyenv rehash
+#pyenv global $py_version
+#python --version
+
