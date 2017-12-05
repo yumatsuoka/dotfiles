@@ -3,7 +3,7 @@
 
 packagelist=(
 
-#$BF|K\8l2=%Q%C%1!<%8(B
+#日本語化パッケージ
      "ubuntu-defaults-ja"
      "language-pack-ja"
      "language-pack-kde-ja"
@@ -14,7 +14,7 @@ packagelist=(
      "fcitx-mozc"
      "ibus-mozc"
 
-#$B3+H/4D6-(B
+#開発環境
      "build-essential"
      "aptitude"
      "cmake"

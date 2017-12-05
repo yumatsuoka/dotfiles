@@ -3,15 +3,15 @@
 DOTPATH=~/dotfiles
 GITHUB_URL=git@github.com:yumatsuoka/dotfiles.git
 
-# git $B$,;H$($k$J$i(B git
+# git が使えるなら git
 if has "git"; then
     git clone --recursive "$GITHUB_URL" "$DOTPATH"
 
-# $B;H$($J$$>l9g$O(B curl $B$+(B wget $B$r;HMQ$9$k(B
+# 使えない場合は curl か wget を使用する
 elif has "curl" || has "wget"; then
     tarball="https://github.com/yumatsuoka/dotfiles/archive/master.tar.gz"
 
-    # $B$I$C$A$+$G%@%&%s%m!<%I$7$F!$(Btar $B$KN.$9(B
+    # どっちかでダウンロードして，tar に流す
     if has "curl"; then
         curl -L "$tarball"
 
@@ -20,7 +20,7 @@ elif has "curl" || has "wget"; then
 
     fi | tar xv -
 
-    # $B2rE`$7$?$i!$(BDOTPATH $B$KCV$/(B
+    # 解凍したら，DOTPATH に置く
     mv -f dotfiles-master "$DOTPATH"
 
 else
@@ -32,7 +32,7 @@ if [ $? -ne 0 ]; then
     die "not found: $DOTPATH"
 fi
 
-# $B0\F0$G$-$?$i%j%s%/$r<B9T$9$k(B
+# 移動できたらリンクを実行する
 for f in .??*
 do
     [ "$f" = ".git" ] && continue

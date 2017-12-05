@@ -61,17 +61,17 @@ casks=(
     cyberduck
     vlc
     atom
-	mactex
-	mendeley-desktop
-	skim
-	kindle
+    mactex
+    mendeley-desktop
+    skim
+    kindle
     kindle-comic-converter
-	skype
-	anaconda
-	adobe-acrobat-reader
-	day-o
-	macpass
-	spotify
+    skype
+    anaconda
+    adobe-acrobat-reader
+    day-o
+    macpass
+    spotify
 )
 
 echo "start brew cask install apps..."

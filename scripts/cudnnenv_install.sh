@@ -2,7 +2,7 @@
 
 pip install cudnnenv  
 
-# cudnn$B$N%Q%9$r(Brc$B$KDI2C(B
+# cudnnのパスをrcに追加
 echo 'export LD_LIBRARY_PATH=~/.cudnn/active/cuda/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc  
 echo 'export CPATH=~/.cudnn/active/cuda/include:$CPATH' >> ~/.bashrc  
 echo 'export LIBRARY_PATH=~/.cudnn/active/cuda/lib64:$LIBRARY_PATH' >> ~/.bashrc  
