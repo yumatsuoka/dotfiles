@@ -8,4 +8,5 @@ pip install seaborn
 pip install cudnnenv
 cudnnenv install v5-cuda8
 pip install cupy
+pip install graphviz
 pip install chainer --no-cache-dir
