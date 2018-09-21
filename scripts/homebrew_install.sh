@@ -50,28 +50,28 @@ for formula in "${formulas[@]}"; do
 done
 
 casks=(
+    adobe-acrobat-reader
+    anaconda
+    atom
+    bettertouchtool
+    cyberduck
+    day-o
     dropbox
     evernote
-    bettertouchtool
     google-chrome
     google-japanese-ime
-    slack
     iterm2
-    libreoffice
-    cyberduck
-    vlc
-    atom
-    mactex
-    mendeley-desktop
-    skim
     kindle
     kindle-comic-converter
+    libreoffice
+    mactex
+    mendeley-desktop
     skype
-    anaconda
-    adobe-acrobat-reader
-    day-o
+    slack
     macpass
+    skim
     spotify
+    vlc
 )
 
 echo "start brew cask install apps..."

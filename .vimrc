@@ -1,9 +1,13 @@
 "dein Scripts(https://qiita.com/delphinus/items/00ff2c0ba972c6e41542)-----------------------------
 
+"set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
+
 " プラグインが実際にインストールされるディレクトリ
-let s:dein_dir = expand('~/.cache/dein')
+let s:dein_dir = expand('~/.vim/dein')
+"let s:dein_dir = expand('~/.vim/dein/repos/github.com')
 " dein.vim 本体
-let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+let s:dein_repo_dir = s:dein_dir . 'repos/github.com/Shougo/dein.vim'
+"let s:dein_repo_dir = s:dein_dir . '/Shougo/dein.vim'
 
 " dein.vim がなければ github から落としてくる
 if &runtimepath !~# '/dein.vim'
@@ -43,7 +47,7 @@ set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
 set fileformats=unix,dos,mac
 
 "スクロールする時にしたが見えるようにする
-set scrolloff=5
+set scrolloff=3
 
 "行番号表示
 set number
@@ -138,9 +142,6 @@ set hlsearch
 "インクリメンタルサーチを行う
 set wrapscan
 
-
-
-
 """"""""""""""""""""""""""""""""""""""""
 "画面分割系のコマンド割り当て。sキーをつぶした。
 
@@ -224,4 +225,6 @@ set backspace=indent,eol,start
 
 " vimでヤンクした内容をクリップボードにコピー
 set clipboard+=unnamed,unnamedplus,autoselect
+
+nnoremap <silent><C-t> :NERDTreeToggle<CR>
 

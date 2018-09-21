@@ -5,7 +5,13 @@ repo = 'Shougo/dein.vim'
 repo = 'Shougo/neomru.vim'
 
 [[plugins]]
-repo = 'Shougo/neocomplete.vim'
+repo = 'Shougo/deoplete.nvim'
+
+[[plugins]]
+repo = 'Shougo/neco-vim'
+
+[[plugins]]
+repo = 'Shougo/neco-syntax'
 
 [[plugins]]
 repo = 'Shougo/neosnippet'
@@ -33,6 +39,15 @@ repo = 'nathanaelkane/vim-indent-guides'
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
+
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+
+[[plugins]]
+repo = 'majutsushi/tagbar'
+
+[[plugins]]
+repo = 'szw/vim-tags'
 
 [[plugins]]
 repo = 'lervag/vimtex'
