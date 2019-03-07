@@ -1,92 +1,66 @@
+# deinを使うなら必須
 [[plugins]]
 repo = 'Shougo/dein.vim'
-# deinを使うなら必須
 
+# vim内の非同期処理を可能に
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
-# vim内の非同期処理を可能に
 
+# color scheme
 [[plugins]]
 repo = 'tomasr/molokai'
-# color scheme
 
+# htmlのタグを閉じる
 [[plugins]]
 repo = 'alvan/vim-closetag'
-# htmlのタグを閉じる
 
+# 閉じ括弧を補完
 [[plugins]]
 repo = 'cohama/lexima.vim'
-# 閉じ括弧を補完
 
-#repo =  'Shougo/neosnippet-snippets'
-
-[[plugins]]
-repo = 'Shougo/deoplete.nvim'
-hook_add='''
-  let g:deoplete#enable_at_startup = 1
-  let g:deoplete#disable_auto_complete = 1
-  inoremap <expr> <C-k>  deoplete#mappings#manual_complete()
-  set splitbelow
-  autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-'''
-
-[[plugins]]
-repo = 'Shougo/neosnippet.vim'
-on_event = 'InsertCharPre'
-on_ft = 'snippet'
-
-[[plugins]]
-repo = 'autozimu/LanguageClient-neovim'
-depends = 'deoplete.nvim'
-on_ft = ['python']
-build = './install.sh'
-hook_source = ''' set hidden
-let g:LanguageClient_serverCommands = {
-    \ 'vue': ['vls'],
-    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-    \ }
-let g:LanguageClient_autoStart = 1
-nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-'''
-
-[[plugins]]
-repo = 'w0rp/ale'
-# 文法エラーチェック
-
-[[plugins]]
-repo = 'roxma/nvim-yarp'
-
-[[plugins]]
-repo = 'roxma/vim-hug-neovim-rpc'
-
-[[plugins]]
-repo = 'itchyny/lightline.vim'
-
-[[plugins]]
-repo = 'tell-k/vim-autopep8'
-hook_add = '''
-  let g:autopep8_max_line_length=79
-'''
-# let g:autopep8_on_save = 1
-
-#repo = 'scrooloose/syntastic'
-#python_checkers = ['pyflakes', 'pep8']
-#let g:syntastic_python_flake8_args = '--ignore="E501"'
-#let g:syntastic_check_on_wq = 0
-
+# 文末にホワイトスペースがあれば表示
 [[plugins]]
 repo = 'bronson/vim-trailing-whitespace'
 
+# vimのしたのコマンドラインをかっこよく
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+
+# 文法エラーチェック
+#[[plugins]]
+#repo = 'w0rp/ale'
+#hook_source= '''
+#    let g:ale_linters = {
+#        \ 'python': ['flake8'],
+#        \ }
+#    let g:ale_fixers = {
+#        \ 'python': ['autopep8', 'black', 'isort'],
+#        \ }
+#    let g:ale_fix_on_save = 1
+#    let g:ale_lint_on_text_changed = 0
+#'''
+
+# language server protcol関連
 [[plugins]]
 repo = 'prabirshrestha/async.vim'
 
+# language server protcol関連
 [[plugins]]
 repo = 'prabirshrestha/vim-lsp'
+hook_add='''
+    if executable('pyls')
+        au User lsp_setup call lsp#register_server({
+            \ 'name': 'pyls',
+            \ 'cmd': {server_info->['pyls']},
+            \ 'whitelist': ['python'],
+            \ })
+    endif
+'''
 
+# language server protcol関連
 [[plugins]]
 repo = 'prabirshrestha/asyncomplete.vim'
 
+# language server protcol関連
 [[plugins]]
 repo = 'prabirshrestha/asyncomplete-lsp.vim'

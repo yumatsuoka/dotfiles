@@ -4,9 +4,9 @@
 # alias
 #alias vim="$HOME/local/bin/vim"
 alias vi=vim
-#alias vim=nvim
+alias vim=nvim
 alias "pip_update_all"="pip list --outdated --format=legacy | awk '{print $1}' | xargs pip install -U pip"
-#export TERM=xterm-256color
+set -q TERM=xterm-256color
 #export lscolors=gxfxcxdxbxegedabagacad
 #set  -q LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=36;01:cd=33;01:su=31;40;07:sg=36;40;07:tw=32;40;07:ow=33;40;07:'
 #export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=36;01:cd=33;01:su=31;40;07:sg=36;40;07:tw=32;40;07:ow=33;40;07:'

@@ -1,7 +1,7 @@
 "Start dein Scripts-------------------------
 " プラグインが実際にインストールされるディレクトリ
 "set pyxversion=3
-let g:python_host_prog = $PYENV_ROOT.'/versions/anaconda3-5.3.1/bin/python'
+"let g:python_host_prog = $PYENV_ROOT.'/versions/anaconda3-5.3.1/bin/python'
 let s:dein_dir = expand('~/.vim/dein')
 " dein.vim 本体
 let s:dein_repo_dir = s:dein_dir . 'repos/github.com/Shougo/dein.vim'
@@ -17,12 +17,17 @@ endif
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
 
-  " プラグインリストを収めた TOML ファイル
-  let g:rc_dir    = expand('~/')
-  let s:toml      = g:rc_dir . '.dein.toml'
+  "" プラグインリストを収めた TOML ファイル
+  "let g:rc_dir    = expand('~/')
+  "let s:toml      = g:rc_dir . '.dein.toml'
 
-  " TOML を読み込み、キャッシュしておく
+  "" TOML を読み込み、キャッシュしておく
   "call dein#load_toml(s:toml,      {'lazy': 0})
+
+  let s:toml_dir = expand('$HOME/')
+  call dein#load_toml(s:toml_dir . '.dein.toml',        {'lazy':0})
+  " Add lazy load plugins
+  call dein#load_toml(s:toml_dir . '.lazy_dein.toml',    {'lazy':1})
 
   call dein#end()
   call dein#save_state()
@@ -108,7 +113,7 @@ set autoindent
 set backspace=indent,eol,start
 
 " vimでヤンクした内容をクリップボードにコピー
-set clipboard+=unnamed,unnamedplus,autoselect
+"set clipboard+=unnamed,unnamedplus,autoselect
 
 "Ctrl+j入力でインサートモードから抜ける
 inoremap <silent> jj <Esc>
@@ -142,12 +147,3 @@ nnoremap sh <C-w>h
 nnoremap ss :<C-u>sp<CR>
 nnoremap sv :<C-u>vs<CR>
 """"""""""""""""""""""""""""""""""""
-
-
-"if executable('pyls')
-"  au User lsp_setup call lsp#register_server({
-"              \ 'name': 'pyls',
-"              \ 'cmd': {server_info->['pyls']},
-"              \ 'whitelist': ['python'],
-"              \ })
-"endif
