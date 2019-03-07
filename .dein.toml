@@ -1,72 +1,92 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
+# deinを使うなら必須
 
 [[plugins]]
-repo = 'Shougo/neomru.vim'
-
-[[plugins]]
-repo = 'Shougo/deoplete.nvim'
-
-[[plugins]]
-repo = 'Shougo/neco-vim'
-
-[[plugins]]
-repo = 'Shougo/neco-syntax'
-
-[[plugins]]
-repo = 'Shougo/neosnippet'
-
-[[plugins]]
-repo =  'Shougo/neosnippet-snippets'
-
-[[plugins]]
-repo = 'scrooloose/syntastic'
-
-[[plugins]]
-repo = 'plasticboy/vim-markdown'
-
-[[plugins]]
-repo = 'Shougo/unite.vim'
-
-[[plugins]]
-repo = 'ujihisa/unite-colorscheme'
+repo = 'Shougo/vimproc.vim'
+# vim内の非同期処理を可能に
 
 [[plugins]]
 repo = 'tomasr/molokai'
+# color scheme
 
 [[plugins]]
-repo = 'nathanaelkane/vim-indent-guides'
+repo = 'alvan/vim-closetag'
+# htmlのタグを閉じる
+
+[[plugins]]
+repo = 'cohama/lexima.vim'
+# 閉じ括弧を補完
+
+#repo =  'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+hook_add='''
+  let g:deoplete#enable_at_startup = 1
+  let g:deoplete#disable_auto_complete = 1
+  inoremap <expr> <C-k>  deoplete#mappings#manual_complete()
+  set splitbelow
+  autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+'''
+
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
+on_event = 'InsertCharPre'
+on_ft = 'snippet'
+
+[[plugins]]
+repo = 'autozimu/LanguageClient-neovim'
+depends = 'deoplete.nvim'
+on_ft = ['python']
+build = './install.sh'
+hook_source = ''' set hidden
+let g:LanguageClient_serverCommands = {
+    \ 'vue': ['vls'],
+    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ }
+let g:LanguageClient_autoStart = 1
+nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+'''
+
+[[plugins]]
+repo = 'w0rp/ale'
+# 文法エラーチェック
+
+[[plugins]]
+repo = 'roxma/nvim-yarp'
+
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 
 [[plugins]]
-repo = 'scrooloose/nerdtree'
-
-[[plugins]]
-repo = 'majutsushi/tagbar'
-
-[[plugins]]
-repo = 'szw/vim-tags'
-
-[[plugins]]
-repo = 'lervag/vimtex'
-
-[[plugins]]
-repo = 'Shougo/vimshell'
-rev = '3787e5'
-
-[[plugins]]
-repo = 'Shougo/vimproc.vim'
-hook_post_update = '''
-  if dein#util#_is_windows()
-    let cmd = 'tools\\update-dll-mingw'
-  elseif dein#util#_is_cygwin()
-    let cmd = 'make -f make_cygwin.mak'
-  elseif executable('gmake')
-    let cmd = 'gmake'
-  else
-    let cmd = 'make'
-  endif
-  let g:dein#plugin.build = cmd
+repo = 'tell-k/vim-autopep8'
+hook_add = '''
+  let g:autopep8_max_line_length=79
 '''
+# let g:autopep8_on_save = 1
+
+#repo = 'scrooloose/syntastic'
+#python_checkers = ['pyflakes', 'pep8']
+#let g:syntastic_python_flake8_args = '--ignore="E501"'
+#let g:syntastic_check_on_wq = 0
+
+[[plugins]]
+repo = 'bronson/vim-trailing-whitespace'
+
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
