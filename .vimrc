@@ -1,47 +1,4 @@
-"Start dein Scripts-------------------------
-" プラグインが実際にインストールされるディレクトリ
-"set pyxversion=3
-"let g:python_host_prog = $PYENV_ROOT.'/versions/anaconda3-5.3.1/bin/python'
-let s:dein_dir = expand('~/.vim/dein')
-" dein.vim 本体
-let s:dein_repo_dir = s:dein_dir . 'repos/github.com/Shougo/dein.vim'
-
-" dein.vim がなければ github から落としてくる
-if &runtimepath !~# '/dein.vim'
-  if !isdirectory(s:dein_repo_dir)
-    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
-  endif
-  execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
-endif
-
-if dein#load_state(s:dein_dir)
-  call dein#begin(s:dein_dir)
-
-  "" プラグインリストを収めた TOML ファイル
-  "let g:rc_dir    = expand('~/')
-  "let s:toml      = g:rc_dir . '.dein.toml'
-
-  "" TOML を読み込み、キャッシュしておく
-  "call dein#load_toml(s:toml,      {'lazy': 0})
-
-  let s:toml_dir = expand('$HOME/')
-  call dein#load_toml(s:toml_dir . '.dein.toml',        {'lazy':0})
-  " Add lazy load plugins
-  call dein#load_toml(s:toml_dir . '.lazy_dein.toml',    {'lazy':1})
-
-  call dein#end()
-  call dein#save_state()
-endif
-
-" If you want to install not installed plugins on startup.
-if dein#check_install()
-  call dein#install()
-endif
-
-" Required:
-filetype plugin indent on
 syntax on
-"End dein Scripts-------------------------
 
 "ファイルのエンコード
 set encoding=utf-8
@@ -135,15 +92,3 @@ set hlsearch
 
 "インクリメンタルサーチを行う
 set wrapscan
-
-""""""""""""""""""""""""""""""""""""""""
-"画面分割系のコマンド割り当て。sキーをつぶした。
-
-nnoremap s  <Nop>
-nnoremap sj <C-w>j
-nnoremap sk <C-w>k
-nnoremap sl <C-w>l
-nnoremap sh <C-w>h
-nnoremap ss :<C-u>sp<CR>
-nnoremap sv :<C-u>vs<CR>
-""""""""""""""""""""""""""""""""""""

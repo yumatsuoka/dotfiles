@@ -1,0 +1,42 @@
+{
+  "editor.tabSize": 2, //デフォルトタブサイズ
+  "editor.rulers": [80], //設定した文字数のラインに線を引く。pep8準拠の参考に80字
+  "editor.insertSpaces": true, //タブの代わりにスペースをインサート
+  "editor.trimAutoWhitespace": true, //自動で文末の不必要なスペースを削除
+  "editor.renderControlCharacters": true, // 制御文字の表示
+  "editor.defaultFormatter": "esbenp.prettier-vscode", //デフォルトフォーマッター
+  "editor.formatOnSave": true, // ファイル保存時に自動でformat
+  "editor.formatOnPaste": true, // ペースト時に自動でformat
+  "files.insertFinalNewline": true, // 最終行に改行を自動挿入
+  "files.autoSave": "afterDelay", // 1秒程度おいて自動でファイルの変更内容を保存。
+  // Pythonセッティング
+  "python.linting.pylintEnabled": false, // pythonのlintingのpylintをOFF
+  "python.linting.flake8Enabled": true, //　代わりにflake8をON
+  "python.linting.flake8Args": [
+    "--max-line-length=80", // １行あたりの最大文字数を80に変更
+    "--ignore=E203,W503,E402"
+  ],
+  "python.linting.lintOnSave": true, // ファイル保存時に自動で文法エラーをチェック
+  "python.formatting.provider": "black", // pythonのフォーマットチェックをblackに設定
+  "python.formatting.blackArgs": ["--line-length=80"], // flake8とblackのline-length設定がバッティングするため設定変更
+  "python.languageServer": "Pylance",
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.inlayHints.functionReturnTypes": true,
+  "python.analysis.autoFormatStrings": true,
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  },
+  "[javascript]": {},
+  "[json]": {},
+  "[jsonc]": {},
+  "[python]": {
+    "editor.formatOnPaste": false,
+    "editor.tabSize": 4,
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format",
+    "files.eol": "\n"
+  },
+  "[yaml]": {}
+}
