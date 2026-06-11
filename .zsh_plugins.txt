@@ -1,0 +1,7 @@
+# --- 入力補完・履歴強化 ---
+# 入力中に履歴を灰色で提案
+zsh-users/zsh-autosuggestions
+# 入力中のコマンドを色で表示
+zsh-users/zsh-syntax-highlighting
+# 超強力なリアルタイム補完(入力中に候補が下に出る)
+marlonrichert/zsh-autocomplete
