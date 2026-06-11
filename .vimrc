@@ -1,94 +1,71 @@
-syntax on
-
-"ファイルのエンコード
+" ------------------------------
+" 基本設定
+" ------------------------------
+set nocompatible              " Vim の古い互換モードを無効化
 set encoding=utf-8
-set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
+set fileencodings=utf-8,sjis,euc-jp
 set fileformats=unix,dos,mac
-set fenc=utf-8
-set ff=unix
-set ambiwidth=double " □や○文字が崩れる問題を解決
+set number                    " 行番号を表示
+set showcmd                  " 入力中のコマンド表示
+set showmode                 " 挿入モードなどを表示
+set cursorline               " 現在行をハイライト
+set nowrap                   " 行の折り返しをしない
+set scrolloff=5              " スクロール時の余白
 
-"行番号表示
-set number
+" ------------------------------
+" インデント設定
+" ------------------------------
+set tabstop=2                " タブ幅（表示）
+set shiftwidth=2             " 自動インデントの幅
+set expandtab                " タブ入力をスペースに変換
+set autoindent               " 自動インデント
+set smartindent              " 構文に応じたインデント
 
-"カーソルラインの表示
-set cursorline
+" ------------------------------
+" 検索
+" ------------------------------
+set ignorecase               " 大文字小文字を無視
+set smartcase                " 大文字を含めば大文字小文字を区別
+set incsearch                " 入力途中でも検索
+set hlsearch                 " 検索結果をハイライト
 
-"ターミナルのタイトルバー
-set title
+" ------------------------------
+" バックアップ/履歴/保存
+" ------------------------------
+set history=1000             " コマンド履歴数
 
-"入力しているコマンドを右下表示
-set showcmd
+" ------------------------------
+" 表示と見た目
+" ------------------------------
+syntax on                    " シンタックスハイライト有効化
+set background=dark          " dark系のカラースキーム用設定
+colorscheme desert           " 色テーマ（例: desert / industry / elflord）
 
-"コマンドのタブ補完
-set wildmenu
+" ------------------------------
+" 補完
+" ------------------------------
+set wildmenu                 " コマンド補完の強化
+set wildmode=longest,list,full
 
-"カーソルの位置情報を表示
-set ruler
+" ------------------------------
+" キーマップのカスタム
+" ------------------------------
+" jjでノーマルモードに戻る
+inoremap jj <Esc>
+" カーソル移動を矢印キーでしないようにする（練習用）
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
 
-"ステータス行表示件数の変更
-set laststatus=2
-set showmode
+" ------------------------------
+" プラグイン（vim-plug使用時）
+" ------------------------------
+" if has('nvim') || has('vim_starting')
+"   call plug#begin('~/.vim/plugged')
+"   Plug 'junegunn/fzf.vim'
+"   Plug 'preservim/nerdtree'
+"   Plug 'tpope/vim-commentary'
+"   call plug#end()
+" endif
 
-" 対応する括弧やブレースを表示する
-set showmatch
-
-"対応かっこの表示秒数を３秒にする
-set matchtime=3
-
-"カーソルを行頭、行末で止まらないようにする
-set whichwrap=b,s,h,l,<,>,[,]
-
-"スクロールする時にしたが見えるようにする
-set scrolloff=2
-
-"行番号の色
-highlight LineNr ctermfg=darkyellow
-
-"vimインデントの幅
-set shiftwidth=4
-
-"tab幅の指定
-set tabstop=4
-
-"連続の空白をバックスペースで連続で消せる
-set softtabstop=4
-
-"タブ入力を複数の空白入力に書き換え
-set expandtab
-
-"shiftwidthの数だけインデントする
-set smarttab
-
-" 改行時に入力された行の末尾に合わせて次の行のインデントを増減する
-set smartindent
-
-" 改行時に前の行のインデントを継続する
-set autoindent
-
-"インデントや空白をバックスペースで削除可能にする
-set backspace=indent,eol,start
-
-" vimでヤンクした内容をクリップボードにコピー
-"set clipboard+=unnamed,unnamedplus,autoselect
-
-"Ctrl+j入力でインサートモードから抜ける
-inoremap <silent> jj <Esc>
-"inoremap <C-j> <Esc>
-
-""""""" 検索関連 """"""""
-
-"検索時などに大文字小文字無視
-set ignorecase
-
-"検索ワードの最初の文字を入力した時点で検索を開始する
-set incsearch
-
-"検索時などに大文字ではじめたら大文字小文字無視しない
-set smartcase
-
-"検索文字をハイライト
-set hlsearch
-
-"インクリメンタルサーチを行う
-set wrapscan
