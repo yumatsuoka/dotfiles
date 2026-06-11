@@ -1,115 +1,54 @@
-### Added by Zinit's installer
-if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
-    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
-        print -P "%F{160} The clone has failed.%f%b"
-fi
+# ~/.zshrc
 
-source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
+# --- 基本設定 ---
+#export LANG=ja_JP.UTF-8
+#export LC_ALL=ja_JP.UTF-8
+export EDITOR="code --wait"
 
-# Load a few important annexes, without Turbo
-# (this is currently required for annexes)
-zinit light-mode for \
-    zdharma-continuum/zinit-annex-as-monitor \
-    zdharma-continuum/zinit-annex-bin-gem-node \
-    zdharma-continuum/zinit-annex-patch-dl \
-    zdharma-continuum/zinit-annex-rust
+# --- zsh plugin manager ---
+# antidote 初期化（brew 経由）
+source $(brew --prefix)/share/antidote/antidote.zsh
+# プラグインを .zsh_plugins.txt から読み込む
+antidote load < ~/.zsh_plugins.txt
 
-### End of Zinit's installer chunk
+# --- PATH設定 ---
+# Homebrew (macOS/Apple Silicon対応)
+export PATH="/opt/homebrew/bin:$PATH"
+# Volta (Node.js/PNPMなどのバージョン管理)
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+# uv (Rust製の高速Pythonパッケージマネージャ)
+export PATH="$HOME/.cargo/bin:$PATH"
 
-# zinit plugins
-# 補完
-zinit light zsh-users/zsh-autosuggestions
+# --- ターミナル環境判定 ---
+TERM_PROGRAM_NAME="${TERM_PROGRAM:-unknown}"
 
-# シンタックスハイライト
-zinit light zdharma-continuum/fast-syntax-highlighting
-
-# autosuggestions for awscli
-autoload bashcompinit && bashcompinit
-autoload -Uz compinit && compinit
-complete -C '/opt/homebrew/bin/aws_completer' aws
-
-# zshの補完のルール
-autoload -U compinit && compinit
-# 大文字小文字を無視して補完する
-zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
-# わざわざ大文字を入力した時は小文字の候補を補完しない
-zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
-# でもやっぱり大文字の候補が見つからない場合には, 小文字の候補を補完する
-zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+m:{[:upper:]}={[:lower:]}'
-# 大文字小文字に関わらず, 候補が見つからない時のみ文字種を無視した補完をする.
-zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
-# 通常補完 -> （小文字 -> 大文字） -> （小文字 -> 大文字 + 大文字 -> 小文字)
-zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' '+m:{[:upper:]}={[:lower:]}'
-
-# starship
-eval "$(starship init zsh)"
-
-# direnvの設定
-eval "$(direnv hook zsh)"
-
-# nodenv
-eval "$(nodenv init -)"
-
-# pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
-
-# fzf setting
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# alias
-alias vi=vim
+# --- 共通エイリアス ---
+alias ll='ls -la'
+alias gs='git status'
+alias gco='git checkout'
 alias ..='cd ..'
-alias mv='mv -i'
-alias df='df -h'
-# rmをゴミ箱に送るにalias
-alias rm="trash"
+alias ...='cd ../..'
 
-# Alias: using exa instead of ls
-if [[ $(command -v exa) ]]; then
-  alias e='exa --icons --git'
-  alias l=e
-  alias ls=e
-  alias ea='exa -a --icons --git'
-  alias la=ea
-  alias ee='exa -aahl --icons --git'
-  alias ll=ee
-  alias et='exa -T -L 3 -a -I "node_modules|.git|.cache" --icons'
-  alias lt=et
-  alias eta='exa -T -a -I "node_modules|.git|.cache" --color=always --icons | less -r'
-  alias lta=eta
-  alias l='clear && ls'
+# --- Warp用の設定 ---
+if [[ "$TERM_PROGRAM_NAME" == "WarpTerminal" ]]; then
+  export STARSHIP_DISABLED=1
+  export BAT_THEME="TwoDark"
+  eval "$(zoxide init zsh)"
+
+# --- VSCodeやiTermなどの汎用ターミナル用 ---
+else
+  eval "$(starship init zsh)"
+  eval "$(zoxide init zsh)"
+  [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+
+  alias ls='eza --icons'
+  alias cat='bat'
+  export BAT_THEME="OneHalfDark"
 fi
 
-cdls ()
-{
-    \cd "$@" && ls
-}
-alias cd="cdls"
+# --- Zsh補完機能の初期化 ---
+autoload -Uz compinit
+compinit
 
-# bat to cat
-alias cat=bat
 
-# Export poetry path
-export PATH="$HOME/.poetry/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-
-# Added by Amplify CLI binary installer
-export PATH="$HOME/.amplify/bin:$PATH"
-
-# Node path
-export PATH=$HOME/.nodebrew/current/bin:$PATH
-
-# Default editor is Vim
-export EDITOR=vim
-
-# Java(JDK) path
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
-export CPPFLAGS="-I/opt/homebrew/opt/openjdk/include"
